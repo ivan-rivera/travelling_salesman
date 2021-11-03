@@ -2,6 +2,8 @@
 Greedy strategy for finding the optimal route.
 Greedy means that we are always looking for the next closest point.
 This approach is expected to be much better than random but far from optimal. It is still a benchmark
+
+Note that this approach can also be called Nearest Neighbours
 """
 from logging import getLogger
 
