@@ -34,6 +34,7 @@ and we repeat the whole process all over again. We keep doing this until we visi
 
 import math
 import random
+from logging import getLogger
 from collections import defaultdict
 from itertools import groupby
 from operator import itemgetter
@@ -43,6 +44,8 @@ from numpy import argmin
 
 from tsp import evaluation
 from tsp.coordinates import Coordinate
+
+logger = getLogger(__name__)
 
 Lookup = DefaultDict[str, Dict[str, Union[float, int]]]
 CoordinatesWithPossibilities = List[Tuple[List[Coordinate], List[Coordinate]]]
@@ -55,6 +58,7 @@ _ID_SEPARATOR = "-"
 
 
 def find_path(coordinates: List[Coordinate], **kwargs) -> Dict[str, list]:
+    logger.info("Finding a path using the MCTS algorithm...")
     first, rest = coordinates[0], coordinates[1:]
     starting_distance = evaluation.get_total_distance(coordinates + [first])
     lookup = defaultdict(lambda: {"n": 0, "distance": starting_distance})

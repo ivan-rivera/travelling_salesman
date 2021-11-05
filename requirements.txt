@@ -1,3 +1,4 @@
 # python 3.9.7
 matplotlib==3.4.3
 numpy~=1.21.3
+git+git://github.com/jvkersch/pyconcorde@master

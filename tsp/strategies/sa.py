@@ -24,9 +24,11 @@ schedule and swap count
 import math
 import random
 from typing import List, Dict
-
+from logging import getLogger
 from tsp import evaluation, tools
 from tsp.coordinates import Coordinate
+
+logger = getLogger(__name__)
 
 _DEFAULT_TEMPERATURE_SCALE = 10
 _DEFAULT_ITERATIONS = 10000
@@ -36,6 +38,7 @@ _DEFAULT_SWAP_COUNT_START_SCALE = 4
 
 
 def find_path(coordinates: List[Coordinate], **kwargs) -> Dict[str, list]:
+    logger.info("Finding a path using the SA algorithm...")
     history = []
     temperature_scale = kwargs.get("temperature_scale", _DEFAULT_TEMPERATURE_SCALE)
     iterations = kwargs.get("iterations", _DEFAULT_ITERATIONS)

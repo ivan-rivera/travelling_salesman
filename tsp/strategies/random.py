@@ -14,7 +14,7 @@ logger = getLogger(__name__)
 
 
 def find_path(coordinates: List[Coordinate], **kwargs) -> Dict[str, list]:
-    logger.info("finding random path...")
+    logger.info("finding a random path...")
     first, rest = coordinates[0], coordinates[1:]
     shuffled_rest = sorted(rest, key=lambda _x: random())
     return {

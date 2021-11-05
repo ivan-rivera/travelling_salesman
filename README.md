@@ -7,3 +7,4 @@ The idea is simple: generate a collection of points on a 2D plane, call the firs
 Useful references:
 * [TSP solved with SA and GA](https://www.youtube.com/watch?v=0rPZSyTgo-w&ab_channel=PaulFred)
 * [TSP with Monte Carlo Tree Search](https://www.youtube.com/watch?v=ECpuWvv--GU&ab_channel=JO)
+* [PyConcorde](https://github.com/jvkersch/pyconcorde)
