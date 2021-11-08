@@ -44,6 +44,7 @@ from numpy import argmin
 
 from tsp import evaluation
 from tsp.coordinates import Coordinate
+from tsp.evaluation import Result
 
 logger = getLogger(__name__)
 
@@ -57,7 +58,7 @@ _DEFAULT_EXPLORATION_CRITERION = 10
 _ID_SEPARATOR = "-"
 
 
-def find_path(coordinates: List[Coordinate], **kwargs) -> Dict[str, list]:
+def find_path(coordinates: List[Coordinate], **kwargs) -> Result:
     logger.info("Finding a path using the MCTS algorithm...")
     first, rest = coordinates[0], coordinates[1:]
     starting_distance = evaluation.get_total_distance(coordinates + [first])
@@ -71,7 +72,7 @@ def _build_tree(
         lookup: Lookup,
         distances: List[float],
         **kwargs
-) -> Dict[str, list]:
+) -> Result:
     expanded_root = _expand(root, candidates)
     evaluated_candidates, new_lookup = _simulate(expanded_root, lookup, **kwargs)
     selection, _ = expanded_root[argmin(evaluated_candidates)]
@@ -83,10 +84,7 @@ def _build_tree(
         new_lookup,
         updated_distances,
         **kwargs
-    ) if new_candidates else {
-        "path": selection + [root[0]],
-        "history": updated_distances
-    }
+    ) if new_candidates else Result(selection + [root[0]], updated_distances)
 
 
 def _simulate(candidates: CoordinatesWithPossibilities, lookup: Lookup, **kwargs) -> Tuple[List[float], Lookup]:

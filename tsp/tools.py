@@ -1,10 +1,20 @@
 """Supporting functions"""
-
+from dataclasses import dataclass
 from time import perf_counter
 from functools import wraps
 from typing import List
 
+import numpy as np
+
+from tsp import evaluation
 from tsp.coordinates import Coordinate, CoordinateId
+from tsp.evaluation import Result
+
+
+@dataclass
+class TimedResult:
+    result: Result
+    elapsed: float
 
 
 def timer(f):
@@ -14,7 +24,7 @@ def timer(f):
         start = perf_counter()
         result = f(*args, **kwargs)
         time_elapsed = perf_counter() - start
-        return {"result": result, "elapsed": time_elapsed}
+        return TimedResult(result, time_elapsed)
     return g
 
 
@@ -34,4 +44,16 @@ def swap_coordinates(coordinates: List[Coordinate], a: CoordinateId, b: Coordina
     new_coord = coordinates.copy()
     new_coord[a_index], new_coord[b_index] = new_coord[b_index], new_coord[a_index]
     return new_coord
+
+
+def create_distance_matrix(coordinates: List[Coordinate]) -> np.array:
+    """Calculate a symmetrical distance matrix between all coordinates"""
+    length = len(coordinates)
+    matrix = np.zeros([length, length])
+    high_values = [1000 for _ in range(length)]
+    np.fill_diagonal(matrix, high_values)
+    for i in range(length):
+        for j in range(i+1, length):
+            matrix[i, j] = matrix[j, i] = evaluation.calculate_distance(coordinates[i], coordinates[j])
+    return matrix
 

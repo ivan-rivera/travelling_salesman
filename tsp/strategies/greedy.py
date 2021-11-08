@@ -10,9 +10,17 @@ from logging import getLogger
 from typing import List, Dict
 
 from tsp.coordinates import Coordinate, CoordinateId
-from tsp.evaluation import calculate_distance
+from tsp.evaluation import calculate_distance, Result
 
 logger = getLogger(__name__)
+
+
+def find_path(coordinates: List[Coordinate], **kwargs) -> Result:
+    logger.info("finding a greedy path...")
+    first = coordinates[0]
+    candidates = {candidate.id: candidate for candidate in coordinates[1:]}
+    greedy_path = _find_greedy_path(first, candidates, [first])
+    return Result(greedy_path + [first])
 
 
 def find_closest_point(position: Coordinate, candidates: Dict[CoordinateId, Coordinate]) -> CoordinateId:
@@ -33,14 +41,3 @@ def _find_greedy_path(
     next_position = candidates.pop(next_point_id)
     updated_path = path + [next_position]
     return _find_greedy_path(next_position, candidates, updated_path) if candidates else updated_path
-
-
-def find_path(coordinates: List[Coordinate], **kwargs) -> Dict[str, list]:
-    logger.info("finding a greedy path...")
-    first = coordinates[0]
-    candidates = {candidate.id: candidate for candidate in coordinates[1:]}
-    greedy_path = _find_greedy_path(first, candidates, [first])
-    return {
-        "path": greedy_path + [first],
-        "history": [],
-    }

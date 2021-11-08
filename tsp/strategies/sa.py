@@ -27,6 +27,7 @@ from typing import List, Dict
 from logging import getLogger
 from tsp import evaluation, tools
 from tsp.coordinates import Coordinate
+from tsp.evaluation import Result
 
 logger = getLogger(__name__)
 
@@ -37,7 +38,7 @@ _DEFAULT_SWAP_COUNT_MAX = 3
 _DEFAULT_SWAP_COUNT_START_SCALE = 4
 
 
-def find_path(coordinates: List[Coordinate], **kwargs) -> Dict[str, list]:
+def find_path(coordinates: List[Coordinate], **kwargs) -> Result:
     logger.info("Finding a path using the SA algorithm...")
     history = []
     temperature_scale = kwargs.get("temperature_scale", _DEFAULT_TEMPERATURE_SCALE)
@@ -58,4 +59,4 @@ def find_path(coordinates: List[Coordinate], **kwargs) -> Dict[str, list]:
         if alternative_length < current_length or random.random() < metropolis_acceptance:
             circled_path, current_length = alternative_path, alternative_length
         history.append(current_length)
-    return {"path": circled_path, "history": history}
+    return Result(circled_path, history)

@@ -3,11 +3,18 @@ Evaluation utilities
 """
 
 import math
+from dataclasses import dataclass, field
 from typing import List, Any, Optional
 
 import matplotlib.pyplot as plt
 
 from tsp.coordinates import Coordinate
+
+
+@dataclass
+class Result:
+    path: List[Coordinate]
+    history: List[float] = field(default_factory=lambda: [])
 
 
 def calculate_distance(a: Coordinate, b: Coordinate) -> float:

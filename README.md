@@ -8,3 +8,4 @@ Useful references:
 * [TSP solved with SA and GA](https://www.youtube.com/watch?v=0rPZSyTgo-w&ab_channel=PaulFred)
 * [TSP with Monte Carlo Tree Search](https://www.youtube.com/watch?v=ECpuWvv--GU&ab_channel=JO)
 * [PyConcorde](https://github.com/jvkersch/pyconcorde)
+* [Linear Programming with CVXPY](https://colab.research.google.com/github/cvxpy/cvxpy/blob/master/examples/notebooks/WWW/mTSP_en.ipynb#scrollTo=5Yp57KABXtuA)
